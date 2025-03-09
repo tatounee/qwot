@@ -204,14 +204,14 @@ pub fn fetch_missing_quotes() -> Option<()> {
         .collect::<Vec<_>>();
 
     let twir_urls = get_new_twir_urls()?;
-    println!("twir_url len: {}", twir_urls.len());
+    // println!("twir_url len: {}", twir_urls.len());
 
     for twir_url in twir_urls.into_iter().rev() {
         if fetched_quotes_date.contains(&twir_url.date.as_str()) {
             continue;
         }
 
-        println!("FETCH {}", twir_url.url);
+        // println!("FETCH {}", twir_url.url);
         let qotw = get_qotw(&twir_url.url);
         if let Some(qotw) = qotw {
             writeln!(storage_file, "{} {}", twir_url.date, qotw).ok();
