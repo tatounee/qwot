@@ -16,7 +16,7 @@ struct TwirUrl {
 
 pub struct Quote {
     pub date: String,
-    pub quote: String,
+    pub text: String,
 }
 
 fn get_storage_file() -> File {
@@ -235,7 +235,7 @@ pub fn get_quotes() -> Vec<Quote> {
             let data = line.split_once(' ').unwrap();
             Quote {
                 date: data.0.to_owned(),
-                quote: data.1.to_owned(),
+                text: data.1.to_owned(),
             }
         })
         .collect()

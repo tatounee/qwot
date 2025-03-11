@@ -38,18 +38,15 @@ fn main() {
     let mut random_idx = random() % quotes.len();
     let mut quote = &quotes[random_idx];
 
-    while quote.quote == NO_QUOTE {
-        random_idx = (random_idx + 1) % quote.quote.len();
+    while quote.text == NO_QUOTE {
+        random_idx = random() % quotes.len();
         quote = &quotes[random_idx];
     }
 
     println!(
         "{}\n\t\t- {} -",
-        quotes[random_idx]
-            .quote
-            .replace(NEWLINE_REPLACEMENT, "\n")
-            .trim(),
-        quotes[random_idx].date
+        quote.text.replace(NEWLINE_REPLACEMENT, "\n").trim(),
+        quote.date
     );
 }
 
