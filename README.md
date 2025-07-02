@@ -19,6 +19,7 @@ Fetch quote from new issues.
 ```
 qwot -f
 ```
+You can create a `crontab` to fecth new quotes each week.
 
 ## Storage
 
