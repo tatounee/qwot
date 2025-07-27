@@ -182,6 +182,7 @@ fn get_qotw(url: &str) -> Option<String> {
             .replace("<code>", "`")
             .replace("</code>", "`")
             .replace("<br>", "")
+            .replace("<hr>", "---")
             .replace("\\&lt;", "<")
             .replace("&lt;", "<")
             .replace("&gt;", ">")
