@@ -24,7 +24,8 @@ fn main() {
     }
 
     if try_fetch_missing_quotes {
-        fetch_missing_quotes();
+        let new_quotes_count = fetch_missing_quotes().expect("Failed to fetch missing quotes");
+        println!("Fetched {} new quotes", new_quotes_count);
         return;
     }
 

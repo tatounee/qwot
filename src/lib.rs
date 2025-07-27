@@ -193,11 +193,11 @@ fn get_qotw(url: &str) -> Option<String> {
     })
 }
 
-pub fn fetch_missing_quotes() -> Option<()> {
+pub fn fetch_missing_quotes() -> Option<u32> {
     let mut storage_file = get_storage_file();
 
     let mut quotes = String::new();
-    storage_file.read_to_string(&mut quotes).ok();
+    storage_file.read_to_string(&mut quotes).expect("Failed to read storage file");
 
     let fetched_quotes_date = quotes
         .lines()
@@ -207,21 +207,23 @@ pub fn fetch_missing_quotes() -> Option<()> {
     let twir_urls = get_new_twir_urls()?;
     // println!("twir_url len: {}", twir_urls.len());
 
+    let mut new_qotw_count = 0;
     for twir_url in twir_urls.into_iter().rev() {
         if fetched_quotes_date.contains(&twir_url.date.as_str()) {
             continue;
         }
 
         // println!("FETCH {}", twir_url.url);
+        new_qotw_count += 1;
         let qotw = get_qotw(&twir_url.url);
         if let Some(qotw) = qotw {
-            writeln!(storage_file, "{} {}", twir_url.date, qotw).ok();
+            writeln!(storage_file, "{} {}", twir_url.date, qotw).expect("Failed to write new quote");
         } else {
-            writeln!(storage_file, "{} {}", twir_url.date, NO_QUOTE).ok();
+            writeln!(storage_file, "{} {}", twir_url.date, NO_QUOTE).expect("Failed to write new quote");
         }
     }
 
-    Some(())
+    Some(new_qotw_count)
 }
 
 pub fn get_quotes() -> Vec<Quote> {
